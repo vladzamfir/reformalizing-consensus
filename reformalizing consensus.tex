@@ -2,6 +2,11 @@
 \usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,graphicx,array}
 
 
+\marginparwidth = 10pt
+\oddsidemargin = 10pt
+\textwidth = 430pt
+
+
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}%[]
 \newtheorem{lem}[thm]{Lemma}
@@ -272,7 +277,6 @@ Recalling that $b$ denotes the proportion of miners that is byzantine, $a$ the p
 
 It might be that in practice, extra-protocol phenomena, attack coordination costs (which were assumed to be zero), or plain lack of interest mean that Bitcoin will survive any attention it gets from adversaries. Alternatively, it might get out-competed on a market between economic consensus protocols, and will be forced to coordinate a change to its consensus protocol by popular demand rather than due to repeated attack. 
 
-\pagebreak
 \section{Analysis of Tendermint}
 
 Let us reuse notation and denote the Tendermint protocol as $\mathcal{P} = (\mathcal{F}, \mathcal{S}, \Gamma)$. 
