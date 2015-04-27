@@ -1,3 +1,6 @@
+This is a repo of the LaTeX for my ``reformalizing consensus'' paper :D
+Pull requests very welcome!
+
 How I compile:
 
 pdflatex reformalizing\ consensus.tex
