@@ -24,7 +24,7 @@
 
 
 \title{Reformalizing Consensus}
-\date{April 25, 2015}
+\date{April 27, 2015}
 \author{Vlad Zamfir \\
  			\\
  			\small With special thanks to Vitalik Buterin and Ethan Buchman}
@@ -40,7 +40,7 @@
 
 \section{Abstract}
 
-Traditional definitions of the consensus problem don't apply perfectly well to economic or blockchain-based consensus protocols, of which the first example of each is Satoshi Nakamoto's Bitcoin protocol. The coincidence of two independent inventions in consensus technology in one protocol, together with the absence of an already-present language for talking about these things has unfortunately confused a lot of discourse about blockchain-based \emph{and} economic consensus. We will reformalize the question of consensus in a way that captures these technologies as well as those studied by ``traditional'' consensus research.
+Traditional definitions of the consensus problem don't apply well to economic or blockchain-based consensus protocols, of which the first example of each is Satoshi Nakamoto's Bitcoin protocol. The coincidence of two independent inventions in consensus technology in one protocol, together with the absence of an already-present language for talking about these things has confused a lot of discourse about blockchain-based \emph{and} economic consensus. We will reformalize the question of consensus in a way that captures these technologies as well as those studied by ``traditional'' consensus research.
 
 \vspace{0.5cm}
 
@@ -51,13 +51,11 @@ Traditional definitions of the consensus problem don't apply perfectly well to e
 Information is \emph{common knowledge} between members of a group, if each of the members knows that each other member knows that information, and they all know that they all know that they know it, and so on ad infinitum.
 \end{defn}
 
-The consensus problem, traditionally, is the problem of defining protocols that computers on a network can use to update common knowledge in common knowledge. By this, traditional consensus research understands that the consensus problem is solved, in a given network environment and an upper bound on the number of crash or byzantine faults, if and only if computers on the network will be certain that any change they \emph{commit} to the \emph{consensus database} will also be commited by \emph{all correct nodes in a finite amount of time}. This is a sensible security definition, but Bitcoin doesn't explicitly guarantee that commitments are final, and the fact that byzantine faults are economically costly doesn't get captured, although it plays an important role in Bitcoin's stability. But before we treat blockchains and economic consensus, let us review the traditional consensus research.
+The consensus problem, traditionally, is understood to be the problem of defining protocols that computers on a network can use to update common knowledge in common knowledge. By this, traditional consensus research considers the consensus problem solved, in a given network environment and an upper bound on the number of crash or byzantine faults, if and only if computers on the network will be certain that any change they \emph{commit} to the \emph{consensus database} will also be commited by \emph{all correct nodes in a finite amount of time}. This is a sensible security definition, but Bitcoin doesn't explicitly guarantee that commitments are final, and the fact that byzantine faults are economically costly doesn't get captured, although it plays an important role in Bitcoin's stability. But before we treat blockchains and economic consensus, let us review the traditional consensus research.
 
 \subsection{Traditional Consensus, an overview}
 
-Traditionally, consensus protocols are tested by seeing if they can solve the consensus problem for one consensus state update, in a given network environment. Noting that rigor is sacrificed for readability, we will cover some traditional background assumptions. 
-
-Some number of clients, typically given as a proportion, are assumed to be complying with the protocol and are called ``correct'', while the rest of the clients are ``faulty'', which typically means one of two things:
+Traditionally, consensus protocols are tested by seeing if they can solve the consensus problem for one consensus state update, in a given network environment. Some number of clients, typically given as a proportion, are assumed to be complying with the protocol and are called ``correct'', while the rest of the clients are ``faulty'', which typically means one of two things:
 
 \begin{defn}[Crash-fault]
 A crash-fault is a failure to terminate a process, or a disconnection from the network.
@@ -74,11 +72,11 @@ In a security analysis, byzantine nodes are typically assumed to be controlled b
 Network messages propagate and online processes terminate in a finite amount of time.
 \end{defn}
 
-\begin{defn}[Asychronicity]
+\begin{defn}[Asynchronicity]
 There is no finite upper bound on how much time a message can take to arrive at its destination, or on how long any process will take to terminate. 
 \end{defn}
 
-The basic idea is that the more synchronous a network is, the more reliably you can distinguish a crash-fault from a slow process. Whereas in a more asynchronous network you can't reliably distinguish the faulty from the slow. This makes an important difference in a protocol's ability to use \emph{timeouts} to coordate consensus. Checking whether timeouts are assumed to be synchronous by a protocol is a good heuristic for checking if it is \emph{unsafe} in asynchronous networks. 
+The basic idea is that the more synchronous a network, the more reliably you can distinguish a crash-fault from a slow process. Whereas in a more asynchronous network you can't reliably distinguish the faulty from the slow, at all. This makes an important difference in a protocol's ability to use \emph{timeouts} to coordate consensus. Checking whether timeouts are assumed to be synchronized between nodes is a good heuristic for checking if a protocol is \emph{unsafe} in asynchronous networks. 
 
 The following result is educational, but isn't tailored to practitioners:
 
@@ -105,7 +103,7 @@ If there is a network partition, then the consensus protocol must choose between
 
 After establishing that a protocol can safely come to consensus (usually in an asynchronous model, while practitioners tend to deploy synchronous protocols), the traditional approach iterates this process in order to produce a changing consensus database that can be used by an application that has to be robust or available all the time. In practice, this turns out to be a difficult way to understand consensus.
 
-This has led to growing interest in a strategy for understanding consensus, known as the \emph{replicated state machine approach} (Figure 1) that lends itself to being more easily understood by practitioners. Importantly for our context, it also makes it easy to bridge the gap between the definitions used to talk about traditional consensus protocols to a language that is useful for blockchain-based consensus protocols. The replicated state machine approach emphasizes how consensus protocols are used to append entries to the log which holds a record of a change to the state of the \emph{consensus application}, and it puts consensus into the context of client-server relationships, making it less abstract.
+This has led to growing interest in a strategy for teaching/learninc consensus, known as the \emph{replicated state machine approach} (Figure 1) that lends itself to being more easily understood by practitioners. Importantly for our context, it also makes it easy to bridge the gap between the definitions used to talk about traditional consensus protocols to a language that is useful for blockchain-based consensus protocols. The replicated state machine approach emphasizes how consensus protocols are used to append entries to the log which holds a record of a change to the state of the \emph{consensus application}, and it puts consensus into the context of client-server relationships, making it less abstract.
 
 \begin{figure}
 \includegraphics{smr.png}
@@ -116,7 +114,7 @@ This has led to growing interest in a strategy for understanding consensus, know
 \subsection{Bitcoin, the Blockchain, and Economic Consensus}
 
 The Bitcoin consensus protocol can be understood in the replicated state machine approach as a consensus protocol that, instead of only adding to the replicated log, chooses between competing ``forks'' of the log. 
-To be precise; in this analogy a block is not a log but a data structure that contains a group of logs, a cryptographic hash of ``the previous block'', along with some other information. The Bitcoin protocol requires that the hashes of the blocks be small enough, at considerable computational expense to the clients supporting the consensus by creating blocks, but it also issues digital assets to the ``miners'' who created these blocks. For miners to incur considerable computational expense, these assets must have a price, and they will only have a price if consensus is maintained by the miners. Additionally, clients choose the fork that has the most ``proof-of-work'' (a quantity of computational resources spent as infered from the hash value) and are able to maintain consensus because no adversary is willing or able to make a chain that is more computationally expensive to produce than the ``consensus fork'' \cite{Bitcoin}.
+To be precise; this analogy isn't perfect because a block is not a log but a data structure that contains a group of logs, a cryptographic hash of ``the previous block'', along with some other information. The Bitcoin protocol requires that the hashes of the blocks be small enough, at considerable computational expense to the clients supporting the consensus by creating blocks, but it also issues digital assets to the ``miners'' who created these blocks. For miners to incur considerable computational expense, these assets must have a price, and they will only have a price if consensus is maintained by the miners. Additionally, clients choose the fork that has the most ``proof-of-work'' (a quantity of computational resources spent as infered from the hash value) and are able to maintain consensus because no adversary is willing or able to make a chain that is more computationally expensive to produce than the ``consensus fork'' \cite{Bitcoin}.
 
 As you might see, this is both quite complicated and outside of the scope of traditional consensus research. Bitcoin gives economic guarantees that consensus will be maintained, and the only block on which clients have consensus, if we use traditional definitions, is the ``genesis block'', which is defined in the protocol as the first block. We are going to need new language and weaker definitions of the consensus problem to talk about blockchain-based or economic consensus protocols, in general, and it turns out that these are indeed independent inventions in consensus science. We will give an elementary language for talking about blockchains and economic consensus before we revisit Bitcoin and also conduct an analysis of Tendermint \cite{Tendermint}.
 
