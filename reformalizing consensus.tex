@@ -8,7 +8,6 @@
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}
 \newtheorem{assm}{Assumption}
-\newtheorem*{assm*}{Assumption}
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
@@ -16,7 +15,7 @@
 
 \title{Reformalizing Consensus}
 \date{April 27, 2015}
-\author{Vlad Zamfir \\
+\author{Vlad Zamfir\\
  			\\
  			\small With special thanks to Vitalik Buterin and Ethan Buchman}
 
@@ -35,7 +34,7 @@ Traditional definitions of the consensus problem don't apply well to economic or
 
 \section{Introduction}
 
-\begin{defn}[Common Knowledge]
+\begin{defn}[Common knowledge]
 Information is \emph{common knowledge} between members of a group, if each of the members knows that each other member knows that information, and they all know that they all know that they know it, and so on ad infinitum.
 \end{defn}
 
@@ -112,7 +111,7 @@ The main difference between a blockchain-based consensus protocol and a traditio
 
 We will now define blockchain-based consensus protocols as a triple of stateful functions:
 
-\begin{defn}
+\begin{defn}[Blockchain-based consensus protocol]
 A blockchain-based consensus protocol is a triple $(\mathcal{F}, \mathcal{S}, \Gamma)$, where:
 \begin{itemize}
 \item $\mathcal{F}$ is the fork-choice rule
@@ -170,7 +169,7 @@ An attacker sends a client a broom with a handle that is shorter than the client
 
 We can additionally specify the height of the state reversion attack as the height of the attacking broom's handle. We also commonly call these attacks ``double-spend'' attack, but strictly speaking double-spending also involves adding something to the adopted fork that prevents a change which existed on the client's original fork to be commited to the newly-adopted fork. This more general attack is the most important attack against consensus protocols. We can use this by-client attack definition to give a security definition.
 
-\begin{defn}[Pointwise Security]
+\begin{defn}[Pointwise security]
 The security of the tail $f^H$ of a client's fork choice $\mathcal{F}(v) = f$ is characterized entirely by the probability that that tail will no longer be a part of the client's blockchain of choice in the future, given a set of network and fault assumptions. 
 \end{defn}
 
@@ -296,8 +295,6 @@ Blockchain technology promises to help us build consensus protocols that are ava
 Economic consensus protocols promise to create backbones for public utilities, but it isn't yet clear that there exists an economic consensus protocol that is suitable for the role in an environment where all nodes are rational and wealth is not uniformly distributed.
 
 \pagebreak
-
 \bibliographystyle{plain}
 \bibliography{mybib}
-
 \end{document}
