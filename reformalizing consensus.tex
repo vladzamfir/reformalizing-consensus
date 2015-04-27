@@ -12,8 +12,6 @@
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}%[chapter]
-\newtheorem{exmp}{Example}[section]
-
 
 
 \title{Reformalizing Consensus}
@@ -132,7 +130,7 @@ Then we can insist that:
 \item $\Gamma: \Sigma \times \mathcal{B} \to \Sigma \cup \{\emptyset \}$
 \end{itemize}
 
-Where the emptyset represent exceptions or waiting for processes to terminate or network events to occur.
+Where the emptyset represents exceptions or waiting for processes to terminate or network events to occur.
 
 Traditional consensus protocols are a subset of these blockchain-based consensus protocols, in the sense that they have a rule for changing the application state as a function of the logs, and a strategy for appending the logs to the consensus, while the fork-choice rule is trivial:
 
@@ -216,7 +214,7 @@ An incentive attack where the attacker commits money to an incentive mechanism w
 
 Motivated by the fact that it doesn't seem right that only the rational nodes can change their consensus strategy, and by our previous definition of byzantine nodes, we define alturist nodes as anti-byzantine nodes:
 
-\begin{defn}[Alturist]
+\begin{defn}[Altruist]
 An altruistic node are able to change their code in an arbitrary way, even at their own expense, but in a security analysis are assumed to work against the attacker.
 \end{defn}
 
