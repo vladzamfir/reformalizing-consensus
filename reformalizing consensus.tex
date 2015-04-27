@@ -207,14 +207,16 @@ We will use what we believe is a worst-case attack model, for how an attacker wi
 \begin{defn}[Bribe attack]
 An incentive attack where the attacker commits money to an incentive mechanism which promises to pay clients under some circumstances, with the intention or effect of causing rational nodes to change their consensus strategies. We additionally assume that: 
 \begin{itemize}
-\item the attack has no coordination costs
-\item rational nodes immediately become aware of bribes
-\item rational nodes are able to efficiently calculate whether a change in software will increase their profitability.
+\item the attacker incurs no coordination costs
+\item rational clients immediately become aware of bribes
+\item rational nodes cam efficiently calculate whether a change in software will increase their profitability
 \end{itemize}
 \end{defn}
 
 Motivated by the fact that it doesn't seem right that only the rational nodes can change their consensus strategy, and by our previous definition of byzantine nodes, we define alturist nodes as anti-byzantine nodes:
 
+%I don't actually end up using this, in analysis. It might conceivably matter sometimes, so I include it.
+%Maybe I shouldn't...
 \begin{defn}[Altruist]
 An altruistic node are able to change their code in an arbitrary way, even at their own expense, but in a security analysis are assumed to work against the attacker.
 \end{defn}
