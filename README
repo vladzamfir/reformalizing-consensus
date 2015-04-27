@@ -1,0 +1,6 @@
+How I compile:
+
+pdflatex reformalizing\ consensus.tex
+bibtex reformalizing\ consensus.aux
+pdflatex reformalizing\ consensus.tex
+pdflatex reformalizing\ consensus.tex
