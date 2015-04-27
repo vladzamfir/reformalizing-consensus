@@ -6,12 +6,12 @@
 \textwidth = 430pt
 
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}%[]
-\newtheorem{assm}{Assumption}%[chapter]
+\newtheorem{thm}{Theorem}
+\newtheorem{assm}{Assumption}
 \newtheorem*{assm*}{Assumption}
 
 \theoremstyle{definition}
-\newtheorem{defn}{Definition}%[chapter]
+\newtheorem{defn}{Definition}
 
 
 \title{Reformalizing Consensus}
@@ -108,7 +108,9 @@ As you might see, this is both quite complicated and outside of the scope of tra
 
 \section{Blockchain-based Consensus Protocols}
 
-The main difference between a blockchain-based consensus protocol and a traditional consensus protocol is that clients in a blockchain-based protocol actively make choices between competing logs, while in a traditional protocol clients only append entries to their logs, and logs are mostly used to catch recovered clients up on missed changes to the consensus.
+The main difference between a blockchain-based consensus protocol and a traditional consensus protocol is that clients in a blockchain-based protocol actively make choices between competing logs, while in a traditional protocol clients only append entries to their logs, and logs are mostly used to catch recovered clients up on missed changes to the consensus. 
+
+We will now define blockchain-based consensus protocols as a triple of stateful functions:
 
 \begin{defn}
 A blockchain-based consensus protocol is a triple $(\mathcal{F}, \mathcal{S}, \Gamma)$, where:
@@ -262,7 +264,7 @@ It might be that in practice, extra-protocol phenomena, attack coordination cost
 
 \section{Analysis of Tendermint}
 
-Let us reuse notation and denote the Tendermint protocol as $\mathcal{P} = (\mathcal{F}, \mathcal{S}, \Gamma)$. 
+Let us re-use notation and denote the Tendermint protocol as $\mathcal{P} = (\mathcal{F}, \mathcal{S}, \Gamma)$. 
 
 Tendermint is a security-deposit-based, economic consensus protocol invented by Jae Kwon\cite{Tendermint}. It has a consensus strategy $\mathcal{S}$ that is based on a traditional byzantine fault tolerant consensus algorithm. It uses a 3-phase commit protocol that is guaranteed to terminate in the presence of up to 33\% byzantine faults in a partially synchronous networks (i.e. asynchronous for unbounded but finite intervals of time), that the \emph{bonded validators} use to coordinate a decision on exactly one block at every height. The commit represents both a commitment to never revert the corresponding change to the consensus database, and a guarantee against byzantine faults because producing commits for more than one block at the same height is punishable by forfeiture of their security deposit - this is a policy enforced by $\Gamma$, which is executed by every validator to update the consensus state. Tendermint therefore has a trivial fork choice rule; clients never revert changes that are commited. Offline clients that catch up to find that there is more than one fork with 67\% of validators return an exception.
 
@@ -282,7 +284,7 @@ If a coalition of at least 67\% of the validators forms, they can exclude the re
 
 The common refutation to this line of argument is that the validators will be forced to cooperate because their users will use another consensus if Tendermint is perceived to be centralized. This argument relies on the inability of the coalitions to keep their byzantine behaviour secret or accepted - something we might be able to count on, in practice - but we would also much prefer to have good behaviour be driven by in-protocol incentives, as much as possible, and are not satisfied that nothing more can be done to prevent hostile majority coalitions from colluding against minority groups. It is therefore unclear if the equilibrium of Tendermint validation is sufficiently decentralized to form the basis of a public utility.
 
-The last notable limitation of Tendermint, for some applications is that by choosing a trivial fork-choice rule and a traditional consensus protocol as its consensus strategy, it is forced to choose consistency over availability in the face of network asynchrony or partitions. While this may be appropriate for Tendermint's intended use-cases, it may not be suitable for applications that must be available, above all else. 
+The last notable limitation of Tendermint, for some applications, is that by choosing a trivial fork-choice rule and a traditional consensus protocol as its consensus strategy, it is forced to choose consistency over availability in the face of network asynchrony and partitions. While this may be appropriate for Tendermint's intended use-cases, it may not be suitable for applications that must be available, above all else. 
 
 
 \section{Conclusion}
