@@ -107,7 +107,7 @@ As you might see, this is both quite complicated and outside of the scope of tra
 
 \section{Blockchain-based Consensus Protocols}
 
-The main difference between a blockchain-based consensus protocol and a traditional consensus protocol is that clients in a blockchain-based protocol actively make choices between competing logs, while in a traditional protocol clients only append entries to their logs, and logs are mostly used to catch recovered clients up on missed changes to the consensus. 
+The main difference between a blockchain-based consensus protocol and a traditional consensus protocol is that clients in a blockchain-based protocol add entries to their logs \emph{and} actively make choices between competing logs, while in a traditional protocol clients only append entries to their logs, and logs are kept primarily to catch recovered clients up on missed changes to the consensus. 
 
 We will now define blockchain-based consensus protocols as a triple of stateful functions:
 
@@ -120,7 +120,7 @@ A blockchain-based consensus protocol is a triple $(\mathcal{F}, \mathcal{S}, \G
 \end{itemize}
 \end{defn}
 
-The ``consensus strategy'' corresponds to the ``consensus module'' of Figure 1, and is so named because it represents the logic used by clients in an \emph{attempt} to come to consensus, and because it will coincide with language for economic consensus protocols. The protocol insists that $\Gamma$ is used to apply blocks to the state of the consensus applicatioin, and that clients use $\mathcal{F}$ to choose a blockchain. 
+The ``consensus strategy'' corresponds to the ``consensus module'' of Figure 1, and is so named because it represents the logic used by clients in an \emph{attempt} to come to consensus, and because it will coincide nicely with language for economic consensus protocols. The protocol insists that $\Gamma$ is used to apply blocks to the state of the consensus applicatioin, and that clients use $\mathcal{F}$ to choose a blockchain. 
 
 In order to make this a bit more formal, let us use $\mathcal{B}$ to denote all possible blocks, $\mathcal{C}$ to denote all possible blockchains, $\Sigma$ to denote all possible consensus application states, and $\mathcal{V}$ to denote the set of all possible \emph{client views}. Though we won't show here that we can do this without loss of generality, we will assume that $\mathcal{V} = \cup_{n \in \mathbb{N}}\left\{\mathbb{R} \times \mathcal{C}\right\}^n \cup \{\emptyset \}$, where the real number can be used to record the time at which the client first had a blockchain come into its view.
 
@@ -145,7 +145,7 @@ We will also have an assumption that is a weaker version of the ``all correct no
 All clients use the fork-choice rule defined in the protocol to choose an application state for their copy of the attempted consensus.
 \end{assm}
 
-Before we define our attack model, let us give a couple of preliminary definitions:
+Before we define an attack model, let us give a couple of preliminary definitions:
 
 \begin{defn}[Block]
 A block is an ordered list of transactions (logs), together with a \emph{height} $h \in \mathbb{N}$, and a cryptographic hash of a block with height $h - 1$, and perhaps some additional information. 
@@ -175,9 +175,11 @@ The security of the tail $f^H$ of a client's fork choice $\mathcal{F}(v) = f$ is
 
 The question of whether or not consensus is guaranteed by a protocol is therefore is not simply a matter of how much asynchrony or faults of various kinds are required for the common knowledge to be lost, for the entire set of correct nodes - but a more complex question about how much asynchrony or faults are required for any particular subset of clients to abandon how much of their fork choices. This ``pointwise'' definition of security can be used to talk about how confident nodes can be that they share how much of a tail, given that they make a set of network and fault assumptions. 
 
+%Maybe we should also discuss censorship attacks 
+
 In the traditional approach to consensus, we iteratively make non-repudiable changes to the consensus, so the problem is phrased in terms of maintaining common knowledge from step to step. In this broader class of consensus protocols, clients aim to grow the tails that their fork-choices have in common by abandoning what they might have thought was common knowledge when they see something more convincing. A security guarantee, therefore, might be something along the lines of ``unless more than a third of the clients are faulty, then in a synchronous network all correct clients will have a higher probability of having a longer common tail, in a finite amount of time''. Notice how this guarantee stresses the uncertainty that nodes can have about the state of the consensus, in this broader class of protocols.
 
-It might, from the perspective of traditional consensus, seem that having a non-trivial fork-choice rule is unsafe - and they are correct, by their definition of safety. However, simultanously recall the CAP theorem and the fact that consensus systems are sometimes used because humans need to make sure that information services are always available. By focusing so much on a definition of safety in the context of ``one-off'' changes to common knowledge, consensus research has under-served systems that prefer availability to consistency in the event of faults or partitions. 
+It might, from the perspective of traditional consensus, seem that having a non-trivial fork-choice rule is unsafe - and they are correct, by their definition of safety. However, recall the CAP theorem and the fact that consensus systems are sometimes used because humans need to make sure that information services are always available. By focusing so much on a definition of safety in the context of ``one-off'' changes to common knowledge, consensus research has under-served systems that prefer availability to consistency in the event of faults or partitions. 
 
 Blockchain-based consensus definitions of security, on the other hand, makes it clear to the practitioner that consensus is an iterative process of trial-and-error - as the ability to revert state changes to maintain consensus is invaluable in systems where availability is the first priority. It is our conclusion, therefore, that blockchain-based consensus is an innovation in consensus technology.
 
