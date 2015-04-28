@@ -1,6 +1,7 @@
 This is a repo of the LaTeX for my ``reformalizing consensus'' paper ;)
 
-The purpose of this paper is to define blockchain-based consensus, and economic consensus protocols.
+The purpose of this paper is to define blockchain-based consensus, and economic consensus protocols. 
+It demonstrates use of the language provided in an analysis of Bitcoin, and an analysis of Tendermint.
 
 
 How I compile:
