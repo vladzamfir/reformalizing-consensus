@@ -188,13 +188,13 @@ Blockchain-based consensus definitions of security, on the other hand, makes it 
 
 Bitcoin was not only the first instance of a blockchain-based consensus algorithm, but it is also the first economic consensus protocol.
 
-A consensus protocol is said to be economic if it makes byzantine faults expensive through the use of digital assets defined in the consensus state - a state that all nodes update according to rules defined by the protocol, $\Gamma$. This idea is a solution that can allow for the free entry and exit of nodes who maintain consensus - indeed, Bitcoin itself allows the ``miners'' who produce blocks to be anonymous. Very notably, Bitcoin mining has become an industry of businessmen who have spent and made hundreds of millions of dollars mining bitcoins. It is our position that this invention, rather than deft use of blockchain technology, is what has made Bitcoin a relative success.
+A consensus protocol is said to be economic if it makes byzantine faults expensive through the use of digital assets defined in the consensus state - a state that all nodes update according to rules defined by the protocol, $\Gamma$. This idea is a solution that can allow for the otherwise-unrestricted entry and exit of nodes who maintain consensus - indeed, Bitcoin itself allows the ``miners'' who produce blocks to be anonymous. Very notably, Bitcoin mining has become an industry of businessmen who have spent and made hundreds of millions of dollars mining bitcoins. It is our position that this invention, rather than deft use of blockchain technology, is what has made Bitcoin a relative success.
 
 This level of freedom to change the members of consensus group without a network administrator hasn't been possible in the scope of traditional consensus research because of the \emph{Sybil attack} problem, where an adversary can deliberately use the mechanism to increase the number of nodes in the group who are under their control over time. Economic consensus protocols make it expensive to be byzantine, and are therefore safe against Sybil attackers who are unwilling to budget and spend enough money. 
 
-It is possible that non-compliant clients participate in the protocol's consensus in order to maximize their return in the protocol's digital asset. We will therefore modify our assumption that all non-byzantine clients are correct, as some clients will be profit-seeking, and especially as we can imagine that the consensus can be a public utility that anyone on the internet can serve or use. Instead of having only two possible compositions of nodes (correct, faulty) or (correct, byzantine), we will have a considerably more complex model, as some nodes will be economic actors. 
+We must assume that non-compliant clients participate in the protocol's consensus in order to maximize their return in the protocol's digital asset, when conducting analysis of economic consensus protocols. We will therefore modify our assumption that all non-byzantine clients are correct, as some clients will be profit-seeking, and especially as we can imagine that the consensus can be a public utility that anyone on the internet can use or provide. Instead of having only two possible compositions of nodes (correct, faulty) or (correct, byzantine), we will have a considerably more complex model, as some nodes will be economic actors. 
 
-Practitioners who develop economic consensus protocols will likely have to be somewhat versed in economics, game theory, and mechanism design - as will the researcher who wants to analyze the security propositions of these protocols. Note that we will continue to use the notation defined in the section on blockchain-based consensus.
+Practitioners who develop economic consensus protocols will likely have to be somewhat versed in economics, game theory, and mechanism design - as will the researcher who wants to analyze the security propositions of these protocols.
 
 \begin{defn}[Rational]
 A client is said to be rational if they will change their consensus strategy $\mathcal{S}$ if it makes or saves them money.
@@ -207,29 +207,33 @@ We will now refer to ``correct'' nodes as \emph{compliant}, avoiding the implica
 We will use what we believe is a worst-case attack model, for how an attacker with a budget can influence the behaviour of rational nodes:
 
 \begin{defn}[Bribe attack]
-An incentive attack where the attacker commits money to an incentive mechanism which promises to pay clients under some circumstances, with the intention or effect of causing rational nodes to change their consensus strategies. We additionally assume that: 
+An incentive attack where the attacker commits money to a mechanism which promises to pay clients under some circumstances, with the intention or effect of causing rational nodes to change their consensus strategies. We additionally assume that: 
 \begin{itemize}
 \item the attacker incurs no coordination costs
-\item rational clients immediately become aware of bribes
-\item rational nodes cam efficiently calculate whether a change in software will increase their profitability
+\item rational clients immediately become aware of bribes, and
+\item rational nodes cam efficiently calculate whether a change in software will increase their profitability.
 \end{itemize}
 \end{defn}
 
-Motivated by the fact that it doesn't seem right that only the rational nodes can change their consensus strategy, and by our previous definition of byzantine nodes, we define alturist nodes as anti-byzantine nodes:
 
 %I don't actually end up using this, in analysis. It might conceivably matter sometimes, so I include it.
 %Maybe I shouldn't...
+Motivated by the fact that it doesn't seem right that only the rational nodes can change their consensus strategy, and by our previous definition of byzantine nodes, we define alturist nodes as anti-byzantine nodes:
+
 \begin{defn}[Altruist]
 An altruistic node are able to change their code in an arbitrary way, even at their own expense, but in a security analysis are assumed to work against the attacker.
 \end{defn}
 
 A canonical security analysis, therefore, will aim to give or test the security guarantees of an economic consensus protocol given the assumption that $b$ nodes are byzantine (and do not need to be bribed by the attacker, at all), $a$ nodes are altruist, $r$ nodes are rational, $c$ nodes are compliant, as well as a bribing attacker's budget $b$ along with the traditional networking assumption. This is certainly more complicated than the typical analysis of a consensus protocol, because the results of economic analysis are often dubious, but it captures the worst-case analysis, given a particular attack budget, and is therefore more satisfactory than traditional byzantine fault tolerance analysis, which does not let you assign a dollar-valued cost to these faults. 
 
-If secure economic consensus protocols are possible, then they may have the potential to provide services that were previously impossible. For example, economic consensus could be used to create a sustainable public internet-based-utilities that can be used as a public source of authenticated, always-available information services - in a system that can outlast human organizations who would otherwise be trusted to provide the services, or even resist attack by a powerful adversary. Economic consensus also promises to allow companies and governments who do not trust each other to share a common application state that they can trust without common knowledge that they are all following the protocol-recommended consensus strategy. These and other possibilities will push practitioners and researchers alike to continue work on the topic, even though the legal status and technical viability of distributed economic consensus protocols is questionable.
+If secure economic consensus protocols are possible, then they may have the potential to provide services that were previously impossible. For example, economic consensus could be used to create a sustainable public internet-based utilities that can be used as a public source of authenticated, always-available information services. 
+These distributed consensus systems would theoretically be able to outlast human organizations who would otherwise be trusted to provide the services, and even to resist attack by a powerful adversary. Economic consensus also promises to allow companies and governments who do not trust each other to share a common application state that they can trust without common knowledge that they are all following the protocol-recommended consensus strategy. These and likely other possibilities will push practitioners and researchers alike to continue work in this area, even though the legal status and technical viability of economic consensus protocols is questionable.
 
-The biggest problem for economic consensus protocol design for the public internet is perhaps that if economic clout isn't distributed evenly in the economy outside of the consensus, then it will also tend to be centralized in the consensus, so long as the inability to spend money is the only thing prohibiting nodes from becoming part of the consensus group. This means that we won't generally be able to assume that there is perfect competition between clients, or that they have equal voting power, so instead we should assume that consensus nodes will form profit-maximizing coalitions.
+The biggest problem for economic consensus protocol design for the public internet is perhaps that if economic clout isn't distributed evenly in the economy outside of the consensus, then it will also tend to be centralized in the consensus. This means that we won't generally be able to assume that there is perfect competition between clients, or that they have equal voting power, so instead we must assume that consensus nodes will form profit-maximizing coalitions.
 
-Finally, we should note that non-economic consensus protocols are a subset of economic consensus protocols; assuming that the digital assets defined in the consensus has a price of zero, the analysis collapses back to a more ordinary byzantine fault tolerance analysis, where rational nodes are byzantine. Now, we will conduct analysis of the Bitcoin consensus protocol, and then of the Tendermint consensus protocol - both of which are economic blockchain-based consensus protocols - to demonstrate the language shared here.
+Finally, we should note that non-economic consensus protocols are a subset of economic consensus protocols; assuming that the digital assets defined in the consensus has a price of zero, the analysis collapses back to a more ordinary byzantine fault tolerance analysis, where rational nodes are byzantine. 
+
+Now, we will conduct analysis of the Bitcoin consensus protocol, and then of the Tendermint consensus protocol - both of which are economic blockchain-based consensus protocols - to demonstrate the language shared here.
 
 
 
