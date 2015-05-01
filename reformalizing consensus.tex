@@ -122,7 +122,7 @@ A blockchain-based consensus protocol is a triple $(\mathcal{F}, \mathcal{S}, \G
 
 The ``consensus strategy'' corresponds to the ``consensus module'' of Figure 1, and is so named because it represents the logic used by clients in an \emph{attempt} to come to consensus, and because it will coincide nicely with language for economic consensus protocols. The protocol insists that $\Gamma$ is used to apply blocks to the state of the consensus applicatioin, and that clients use $\mathcal{F}$ to choose a blockchain. 
 
-In order to make this a bit more formal, let us use $\mathcal{B}$ to denote all possible blocks, $\mathcal{C}$ to denote all possible blockchains, $\Sigma$ to denote all possible consensus application states, and $\mathcal{V}$ to denote the set of all possible \emph{client views}. Though we won't show here that we can do this without loss of generality, we will assume that $\mathcal{V} = \cup_{n \in \mathbb{N}}\left\{\mathbb{R} \times \mathcal{C}\right\}^n \cup \{\emptyset \}$, where the real number can be used to record the time at which the client first had a blockchain come into its view.
+In order to make this a bit more formal, let us use $\mathcal{B}$ to denote all possible blocks, $\mathcal{C}$ to denote all possible blockchains, $\Sigma$ to denote all possible consensus application states, and $\mathcal{V}$ to denote the set of all possible \emph{client views}. We will assume that views consist only of blockchains and the times at which they were first observed, i.e. $\mathcal{V} = \cup_{n \in \mathbb{N}}\left\{\mathbb{R} \times \mathcal{C}\right\}^n$.
 
 Then we can insist that:
 \begin{itemize}
