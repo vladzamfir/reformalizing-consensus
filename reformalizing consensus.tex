@@ -158,7 +158,7 @@ A blockchain $f$'s \emph{tail at height $H$}, $f^H$, refers to the blockchain th
 \end{defn}
 
 \begin{defn}[A blockchain's broom]
-A blockchain $f$'s broom in a client's view $v \in \mathcal{V}$ is the set of all blockchains in $v$ who share only $f$ as a tail. Note that $f$ is called a handle, in this context.
+A set of blockchains in $v \in \mathcal{V}$ is a broom with handle $f$, if $f$ is the longest common tail of any pair of these blockchains.
 \end{defn}
 
 We can now define an attack on clients, to which only clients with a non-trivial fork-choice rule are vulnerable:
