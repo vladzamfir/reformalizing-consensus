@@ -63,7 +63,7 @@ Network messages propagate and online processes terminate in a finite amount of 
 There is no finite upper bound on how much time a message can take to arrive at its destination, or on how long any process will take to terminate. 
 \end{defn}
 
-The basic idea is that the more synchronous a network, the more reliably you can distinguish a crash-fault from a slow process. Whereas in a more asynchronous network you can't reliably distinguish the faulty from the slow, at all. This makes an important difference in a protocol's ability to use \emph{timeouts} to coordate consensus. Checking whether timeouts are assumed to be synchronized between nodes is a good heuristic for determining if a protocol is \emph{unsafe} in asynchronous networks. 
+The basic idea is that the more synchronous a network, the more reliably you can distinguish a crash-fault from a slow process. Whereas in a more asynchronous network you can't reliably distinguish the faulty from the slow, at all. This makes an important difference in a protocol's ability to use \emph{timeouts} to coordate consensus. 
 
 The following result is educational, but is not tailored to practitioners:
 
