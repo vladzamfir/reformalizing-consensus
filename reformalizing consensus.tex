@@ -124,14 +124,14 @@ The ``consensus strategy'' corresponds to the ``consensus module'' of Figure 1, 
 
 In order to make this a bit more formal, let us use $\mathcal{B}$ to denote all possible blocks, $\mathcal{C}$ to denote all possible blockchains, $\Sigma$ to denote all possible consensus application states, and $\mathcal{V}$ to denote the set of all possible \emph{client views}. We will assume that views consist only of blockchains and the times at which they were first observed, i.e. $\mathcal{V} = \cup_{n \in \mathbb{N}}\left\{\mathbb{R} \times \mathcal{C}\right\}^n$.
 
-Then we can insist that:
+Then we can insist that clients use:
 \begin{itemize}
-\item $\mathcal{F}:\mathcal{V} \to \mathcal{C} \cup \{\emptyset \}$
-\item $\mathcal{S}:\mathcal{V} \to \mathcal{B} \cup \{\emptyset \}$
-\item $\Gamma: \Sigma \times \mathcal{B} \to \Sigma \cup \{\emptyset \}$
+\item $\mathcal{F}$ to choose a blockchain, $\mathcal{F}:\mathcal{V} \to \mathcal{C} \cup \{\emptyset \}$
+\item $\mathcal{S}$ to propose blocks, $\mathcal{S}: \mathcal{V} \to \mathcal{B} \cup \{\emptyset \}$
+\item $\Gamma$ to update the state, $\Gamma: \Sigma \times \mathcal{B} \to \Sigma \cup \{\emptyset \}$
 \end{itemize}
 
-Where the emptyset represents exceptions or waiting for processes to terminate or network events to occur.
+Where the empty set, $\emptyset$, represents exceptions or waiting for processes to terminate or network events to occur.
 
 Traditional consensus protocols are a subset of these blockchain-based consensus protocols, in the sense that they have a rule for changing the application state as a function of the logs, and a strategy for appending the logs to the consensus, while the fork-choice rule is trivial:
 
