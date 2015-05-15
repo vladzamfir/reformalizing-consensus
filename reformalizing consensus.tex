@@ -219,10 +219,10 @@ An incentive attack where the attacker commits money to a mechanism which promis
 
 %I don't actually end up using this, in analysis. It might conceivably matter sometimes, so I include it.
 %Maybe I shouldn't...
-Motivated by the fact that it doesn't seem right that only the rational nodes can change their consensus strategy, and by our previous definition of byzantine nodes, we define alturist nodes as anti-byzantine nodes:
+Motivated by the fact that it doesn't seem right that only the rational nodes can change their consensus strategy, and by our previous definition of byzantine nodes, we define altruist nodes as anti-byzantine nodes:
 
 \begin{defn}[Altruist]
-An altruistic node are able to change their code in an arbitrary way, even at their own expense, but in a security analysis are assumed to work against the attacker.
+An altruistic node is able to change their code in an arbitrary way, even at their own expense, but in a security analysis are assumed to work against the attacker.
 \end{defn}
 
 A canonical security analysis, therefore, will aim to give or test the security guarantees of an economic consensus protocol given the assumption that $b$ nodes are byzantine (and do not need to be bribed by the attacker, at all), $a$ nodes are altruist, $r$ nodes are rational, $c$ nodes are compliant, as well as a bribing attacker's budget $b$ along with the traditional networking assumption. This is certainly more complicated than the typical analysis of a consensus protocol, because the results of economic analysis are often dubious, but it captures the worst-case analysis, given a particular attack budget, and is therefore more satisfactory than traditional byzantine fault tolerance analysis, which does not let you assign a dollar-valued cost to these faults. 
@@ -266,7 +266,7 @@ Lastly, the \emph{P + $\epsilon$} attack is, at least theoretically, the most ef
 
 Now that we know that the attacker can control rational nodes for free, in our model, we are ready to state Bitcoin's security guarantee:
 
-Recalling that $b$ denotes the proportion of miners that is byzantine, $a$ the proportion that is alturistic, $r$ the proportion of rational nodes, and $c$ the remaining proportion of nodes who are compliant, and now also denoting Bitcoin miners' reward per block as $R$, and assuming that mining is an efficient market and that the network's largest partition has $h\%$ of the overall hashing power, then we can say that an attacker must spend 
+Recalling that $b$ denotes the proportion of miners that are byzantine, $a$ the proportion that are alturistic, $r$ the proportion of rational nodes, and $c$ the remaining proportion of nodes who are compliant, and now also denoting Bitcoin miners' reward per block as $R$, and assuming that mining is an efficient market and that the network's largest partition has $h\%$ of the overall hashing power, then we can say that an attacker must spend 
 
 $$h \cdot R \cdot max\{(a + c) - (b + r),0\}$$ 
 
