@@ -72,7 +72,7 @@ The following result is educational, but is not tailored to practitioners:
 It's impossible to guarantee that consensus will be reached in a finite amount of time in an asynchronous network if an adversary can selectively cause one crash-fault at a time.
 \end{thm}
 
-This result should have been called ``the FLP unfortunately-only-almost-sure possibility result'' because in practice nodes do not conspire to be selectively faulty at the opportune moments for an indefinite period of time. In practice, the FLP impossibility result does not pose a direct problem, because protocols will do multiple attempts in the event of a failure, and consensus is almost surely reached in a finite amount of time. Before we go to the next important result, let us define:
+This result should have been called ``the FLP unfortunately-only-almost-sure possibility result'' because in practice nodes are not consistently faulty at the precise moment that they are critical for determining whether a change will be commited. In practice, the FLP impossibility result does not pose a direct problem, because protocols will do multiple attempts in the event of a failure, and consensus is almost surely reached in a finite amount of time. Before we go to the next important result, let us define:
 
 \begin{defn}[Consistency]
 The property that every correct node has a copy of the same consensus state.
