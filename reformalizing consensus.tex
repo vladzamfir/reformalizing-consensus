@@ -45,7 +45,7 @@ The consensus problem, traditionally, is understood to be the problem of definin
 Traditionally, consensus protocols are tested by seeing if they can solve the consensus problem for one consensus state update, in a given network environment. Some number of servers, typically given as a proportion, are assumed to be complying with the protocol and are called ``correct'', while the rest of the nodes are ``faulty'', which typically means one of two things:
 
 \begin{defn}[Crash-fault]
-A crash-fault is a failure to terminate a process, or a disconnection from the network. Crash-faults can be characterized as fail-stop or fail-restart.
+A node is said to have experienced a crash-fault if it is unresponsive or disconnected from the network. Crash-faults can be characterized by whether they become responsive or reconnected at a later time. Crash-faulty nodes who never recover experience fail-stop faults, nodes who recover are said to be fail-restart faulty.
 \end{defn}
 
 \begin{defn}[Byzantine fault]
